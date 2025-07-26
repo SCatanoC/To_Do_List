@@ -131,36 +131,42 @@ async function editTask(buttonEl) {
 
 confirmEditBtn.addEventListener("click", async () => {
   const newTitle = editInput.value.trim();
-  if (newTitle === "") return;
+  if (!newTitle || currentEditId === null) return;
 
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/tasks/${currentEditId}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ taskTitle: newTitle }),
-      }
-    );
+  // 1) Recuperamos el estado actual antes de la edición
+  const old = taskArr.find((t) => t.id === currentEditId);
 
-    if (!response.ok) {
-      throw new Error("Error en la respuesta del servidor");
-    }
+  // 2) Hacemos PUT enviando título + complete
+  const res = await fetch(`http://localhost:3000/api/tasks/${currentEditId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      taskTitle: newTitle,
+      complete: old.complete, // <–– aquí lo añadimos
+    }),
+  });
 
-    // Actualizar solo después de confirmar que el backend respondió correctamente
-    const updatedTask = await response.json();
-    const taskIndex = taskArr.findIndex((t) => t.id === currentEditId);
-    console.log(taskArr);
-    if (taskIndex !== -1) {
-      taskArr[taskIndex] = updatedTask;
-      updateTaskContainer();
-      console.log(taskArr);
-    }
-  } catch (err) {
-    console.error("Error al editar tarea:", err);
-  } finally {
-    closeEditModal();
+  if (!res.ok) {
+    throw new Error("Error en la respuesta del servidor");
   }
+
+  // 3) Parseamos y normalizamos tipos
+  const updated = await res.json();
+  updated.id = Number(updated.id);
+  updated.complete = Boolean(updated.complete);
+
+  // 4) Reemplazamos solo esa tarea y refrescamos UI
+  const idx = taskArr.findIndex((t) => t.id === currentEditId);
+  if (idx !== -1) {
+    taskArr[idx] = {
+      ...taskArr[idx],
+      ...updated,
+    };
+    updateTaskContainer();
+  }
+
+  // 5) Cerramos el modal
+  closeEditModal();
 });
 cancelEditBtn.addEventListener("click", closeEditModal);
 
