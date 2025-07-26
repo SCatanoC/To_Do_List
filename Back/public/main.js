@@ -7,6 +7,10 @@ const editInput = document.getElementById("edit-input");
 const confirmEditBtn = document.getElementById("confirm-edit");
 const cancelEditBtn = document.getElementById("cancel-edit");
 
+const zoomModal = document.getElementById("zoom-modal");
+const zoomText = document.getElementById("zoom-text");
+const zoomCloseBtn = document.getElementById("zoom-btn");
+
 let currentEditId = null;
 const taskArr = [];
 
@@ -54,7 +58,10 @@ const updateTaskContainer = () => {
             } onchange = "completeBox(${id})"/>    
             <h2 style="text-decoration: ${
               complete ? "line-through" : "none"
-            }">${taskTitle}</h2>
+            }" onclick="openZommModal('${taskTitle.replace(
+      /'/g,
+      "\\'"
+    )}')">${taskTitle}</h2>
         </div>
         <div class="btn-container">
             <button class="btn edit" data-id="${id}" onclick="editTask(this)"><i class='bxr  bx-edit'  ></i> </button>
@@ -66,20 +73,15 @@ const updateTaskContainer = () => {
 };
 
 async function completeBox(id) {
-  // 1) Buscamos la tarea actual
   const task = taskArr.find((t) => t.id === id);
   if (!task) return;
-
-  // 2) Calculamos el nuevo estado
   const newStatus = !task.complete;
-
-  // 3) Llamada al servidor enviando título + estado
   const res = await fetch(`http://localhost:3000/api/tasks/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      taskTitle: task.taskTitle, // título que ya existe
-      complete: newStatus, // nuevo estado
+      taskTitle: task.taskTitle /*título*/,
+      complete: newStatus /*estado*/,
     }),
   });
 
@@ -88,7 +90,7 @@ async function completeBox(id) {
   updated.id = Number(updated.id);
   updated.complete = Boolean(updated.complete);
 
-  // 5) Reemplazamos TODO el objeto en el array
+  /*actua arr*/
   const idx = taskArr.findIndex((t) => t.id === id);
   if (idx !== -1) {
     taskArr[idx] = updated;
@@ -124,25 +126,24 @@ async function editTask(buttonEl) {
   }
 
   currentEditId = id;
-  editInput.value = task.taskTitle; // Llenar el input con el título actual
-  editModal.classList.remove("hidden"); // Mostrar modal
-  editInput.focus(); // Dar foco al input
+  editInput.value = task.taskTitle;
+  editModal.classList.remove("hidden");
+  editInput.focus();
 }
 
 confirmEditBtn.addEventListener("click", async () => {
   const newTitle = editInput.value.trim();
   if (!newTitle || currentEditId === null) return;
 
-  // 1) Recuperamos el estado actual antes de la edición
+  /*actual state*/
   const old = taskArr.find((t) => t.id === currentEditId);
 
-  // 2) Hacemos PUT enviando título + complete
   const res = await fetch(`http://localhost:3000/api/tasks/${currentEditId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       taskTitle: newTitle,
-      complete: old.complete, // <–– aquí lo añadimos
+      complete: old.complete,
     }),
   });
 
@@ -150,12 +151,12 @@ confirmEditBtn.addEventListener("click", async () => {
     throw new Error("Error en la respuesta del servidor");
   }
 
-  // 3) Parseamos y normalizamos tipos
+  /*Parseo y normalizacion tipos*/
   const updated = await res.json();
   updated.id = Number(updated.id);
   updated.complete = Boolean(updated.complete);
 
-  // 4) Reemplazamos solo esa tarea y refrescamos UI
+  /*reemplazo de tarea*/
   const idx = taskArr.findIndex((t) => t.id === currentEditId);
   if (idx !== -1) {
     taskArr[idx] = {
@@ -165,7 +166,6 @@ confirmEditBtn.addEventListener("click", async () => {
     updateTaskContainer();
   }
 
-  // 5) Cerramos el modal
   closeEditModal();
 });
 cancelEditBtn.addEventListener("click", closeEditModal);
@@ -174,3 +174,12 @@ function closeEditModal() {
   editModal.classList.add("hidden");
   currentEditId = null;
 }
+
+function openZommModal(text) {
+  zoomText.textContent = text;
+  zoomModal.classList.remove("hidden");
+}
+
+zoomCloseBtn.addEventListener("click", () => {
+  zoomModal.classList.add("hidden");
+});

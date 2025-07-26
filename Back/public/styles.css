@@ -27,8 +27,8 @@ body {
 .main-container {
   position: relative;
   margin-top: 100px;
-  width: 400px;
-  height: 500px;
+  width: 500px;
+  min-height: 500px;
   background-color: var(--section-main-color);
   padding: 40px;
   display: flex;
@@ -48,14 +48,16 @@ body {
   width: 100%;
   display: flex;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
 .main-container .container-add-task .input-task {
   width: 85%;
-  height: 35px;
+  height: 55px;
   border-radius: 6px;
   border: none;
   padding: 10px;
+  font-size: 15px;
   color: #fff;
   background-color: var(--input-field);
   box-shadow: 1px 1px 4px var(--button-bg-color);
@@ -70,14 +72,13 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 6px;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .main-container .list-task {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100px;
   margin-top: 20px;
 }
 
@@ -85,11 +86,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70px;
-  margin-top: 20px;
-  padding: 0px 10px;
-  border: 4px solid #000;
+  min-height: 60px;
+  margin-bottom: 15px;
+  padding: 10px 10px;
+  border: 5px solid #000;
   border-radius: 10px;
+  box-shadow: 1px 1px 4px #c549ea;
 }
 
 .main-container .list-task .task .validation-conteiner {
@@ -100,10 +102,16 @@ body {
   width: 75%;
   margin-right: 5px;
   gap: 10px;
+  box-sizing: border-box;
 }
 .main-container .list-task .task .validation-conteiner h2 {
+  display: block;
+  overflow: hidden;
   text-align: center;
   align-items: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 5px;
 }
 
 .main-container .list-task .task .btn-container {
@@ -138,13 +146,14 @@ body {
 }
 
 .validation-conteiner input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
   accent-color: var(--button-bg-color);
   cursor: pointer;
 }
 
-.modal {
+.modal,
+.zoom-modal {
   position: absolute;
   top: 0;
   left: 0;
@@ -209,6 +218,34 @@ body {
 
 .modal .modal-conteiner .btn-modal .cancel-edit {
   background-color: var(--btn-delete);
+}
+
+.zoom-modal .zoom-container {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 500px;
+  height: auto;
+  background-color: var(--section-main-color);
+  align-items: center;
+  padding: 25px 20px;
+  border-radius: 20px;
+}
+
+.zoom-modal .zoom-container h2 {
+  display: block;
+  word-break: break-word;
+
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: var(--input-field);
+  box-shadow: 1px 1px 4px var(--button-bg-color);
 }
 
 .hidden {
