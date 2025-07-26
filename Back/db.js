@@ -10,14 +10,13 @@ const db = mysql.createConnection({
   port: 3306, // sql port
 });
 
-// Intentar conectarse
+//conect
 db.connect((err) => {
   if (err) {
-    console.error("❌ Error al conectar a MySQL:", err.message);
+    console.error("Error al conectar:", err.message);
   } else {
-    console.log("✅ Conexión exitosa a MySQL");
+    console.log("Conexión exitosa MySQL");
   }
 });
 
-// Exportar para usar en otros archivos
 module.exports = db;
