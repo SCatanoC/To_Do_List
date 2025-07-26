@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <title>To Do List</title>
+  </head>
+
+  <body>
+    <section class="main-container">
+      <h1>To Do List</h1>
+      <div class="container-add-task">
+        <input
+          class="input-task"
+          placeholder="Add your Task"
+          id="title-input"
+        />
+        <button class="btn" id="btn-add" type="button">+</button>
+      </div>
+      <div class="list-task" id="task-container"></div>
+      <!-- Modal de edición -->
+      <div id="edit-modal" class="modal hidden">
+        <div class="modal-conteiner">
+          <h2>Editar Tarea</h2>
+          <input type="text" id="edit-input" />
+          <div class="btn-modal">
+            <button id="confirm-edit" class="confirm-edit">Save</button>
+            <button id="cancel-edit" class="cancel-edit">Discard</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="main.js"></script>
+  </body>
+</html>

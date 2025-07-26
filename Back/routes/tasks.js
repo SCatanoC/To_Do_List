@@ -1,0 +1,63 @@
+// routes/tasks.js
+
+const express = require("express");
+const router = express.Router();
+const db = require("../db");
+
+// Obtener todas las tareas
+router.get("/", (req, res) => {
+  db.query("SELECT * FROM tasks", (err, results) => {
+    if (err) return res.status(500).json({ error: err });
+    res.json(results);
+  });
+});
+
+// Agregar tarea
+router.post("/", (req, res) => {
+  const { taskTitle } = req.body;
+  if (!taskTitle) return res.status(400).json({ error: "Falta el título" });
+
+  db.query(
+    "INSERT INTO tasks (taskTitle) VALUES (?)",
+    [taskTitle],
+    (err, result) => {
+      if (err) return res.status(500).json({ error: err });
+      res.json({ id: result.insertId, taskTitle, complete: false });
+    }
+  );
+});
+
+// Editar título y completar/descompletar en un solo endpoint
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const { taskTitle, complete } = req.body;
+  // Validación
+  if (taskTitle === undefined || complete === undefined) {
+    return res.status(400).json({ error: "Faltan taskTitle o complete" });
+  }
+
+  db.query(
+    "UPDATE tasks SET taskTitle = ?, complete = ? WHERE id = ?",
+    [taskTitle, complete, id],
+    (err) => {
+      if (err) return res.status(500).json({ error: err });
+
+      // Devolver la tarea completa actualizada
+      db.query("SELECT * FROM tasks WHERE id = ?", [id], (err2, results) => {
+        if (err2) return res.status(500).json({ error: err2 });
+        res.json(results[0]); // { id, taskTitle, complete }
+      });
+    }
+  );
+});
+
+// Eliminar tarea
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  db.query("DELETE FROM tasks WHERE id = ?", [id], (err) => {
+    if (err) return res.status(500).json({ error: err });
+    res.json({ id });
+  });
+});
+
+module.exports = router;

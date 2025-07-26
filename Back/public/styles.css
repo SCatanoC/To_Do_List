@@ -1,0 +1,216 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+:root {
+  --main-color: #253b3b;
+  --section-main-color: #0d1111;
+  --button-bg-color: #239696;
+  --input-field: #000;
+  --btn-delete: #c1292e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+}
+
+body {
+  background-color: var(--main-color);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container {
+  position: relative;
+  margin-top: 100px;
+  width: 400px;
+  height: 500px;
+  background-color: var(--section-main-color);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.main-container h1 {
+  color: #fff;
+  font-size: 40px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.main-container .container-add-task {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.main-container .container-add-task .input-task {
+  width: 85%;
+  height: 35px;
+  border-radius: 6px;
+  border: none;
+  padding: 10px;
+  color: #fff;
+  background-color: var(--input-field);
+  box-shadow: 1px 1px 4px var(--button-bg-color);
+}
+
+.main-container .container-add-task .btn {
+  display: flex;
+  width: 15%;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--button-bg-color);
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 20px;
+}
+
+.main-container .list-task {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100px;
+  margin-top: 20px;
+}
+
+.main-container .list-task .task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin-top: 20px;
+  padding: 5px 10px;
+  border: 4px solid #000;
+  border-radius: 10px;
+}
+
+.main-container .list-task .task .validation-conteiner {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #fff;
+  width: 75%;
+  margin-right: 5px;
+  gap: 10px;
+}
+.main-container .list-task .task .validation-conteiner h2 {
+  text-align: center;
+  align-items: center;
+}
+
+.main-container .list-task .task .btn-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 25%;
+  gap: 5px;
+}
+
+.main-container .list-task .task .btn-container .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  padding: 5px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.main-container .list-task .task .btn-container .btn.edit {
+  background-color: var(--button-bg-color);
+}
+
+.main-container .list-task .task .btn-container .btn.delete {
+  background-color: var(--btn-delete);
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.validation-conteiner input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--button-bg-color);
+  cursor: pointer;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(46, 61, 70, 0.6); /* fondo opaco */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal .modal-conteiner {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  flex-direction: column;
+  width: 300px;
+  height: auto;
+  background-color: var(--section-main-color);
+  align-items: center;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.modal .modal-conteiner h2 {
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.modal .modal-conteiner input {
+  width: 85%;
+  height: 35px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: none;
+  padding: 10px;
+  color: #fff;
+  background-color: var(--input-field);
+  box-shadow: 1px 1px 4px var(--button-bg-color);
+}
+
+.modal .modal-conteiner .btn-modal {
+  display: flex;
+  justify-content: space-between;
+  width: 238px;
+  margin-bottom: 8px;
+}
+
+.modal .modal-conteiner .btn-modal .confirm-edit,
+.modal .modal-conteiner .btn-modal .cancel-edit {
+  border-radius: 6px;
+  padding: 4px;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+}
+
+.modal .modal-conteiner .btn-modal .confirm-edit {
+  background-color: var(--button-bg-color);
+}
+
+.modal .modal-conteiner .btn-modal .cancel-edit {
+  background-color: var(--btn-delete);
+}
+
+.hidden {
+  display: none;
+}
