@@ -68,7 +68,6 @@ export async function completeBox(id) {
     }),
   });
 
-  // 4) Parseamos la respuesta y garantizamos tipos
   const updated = await res.json();
   updated.id = Number(updated.id);
   updated.complete = Boolean(updated.complete);
@@ -107,7 +106,6 @@ export async function editTask(buttonEl) {
     return;
   }
 
-  // usamos currentEditId directamente
   currentEditId = id;
   editInput.value = task.taskTitle;
   editModal.classList.remove("hidden");
