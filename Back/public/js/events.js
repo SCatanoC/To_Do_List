@@ -1,23 +1,23 @@
-const titleInput = document.getElementById("title-input");
-const btnAdd = document.getElementById("btn-add");
-const taskContainer = document.getElementById("task-container");
+import {
+  titleInput,
+  btnAdd,
+  taskContainer,
+  editModal,
+  editInput,
+  confirmEditBtn,
+  cancelEditBtn,
+  zoomModal,
+  zoomText,
+  zoomCloseBtn,
+  categoryButtons,
+  taskArr,
+} from "./dom.js";
+import { updateTaskContainer } from "./render.js";
 
-const editModal = document.getElementById("edit-modal");
-const editInput = document.getElementById("edit-input");
-const confirmEditBtn = document.getElementById("confirm-edit");
-const cancelEditBtn = document.getElementById("cancel-edit");
-
-const zoomModal = document.getElementById("zoom-modal");
-const zoomText = document.getElementById("zoom-text");
-const zoomCloseBtn = document.getElementById("zoom-btn");
-
-const categoryButtons = document.querySelectorAll(".category-btn");
-
-let currentEditId = null;
-const taskArr = [];
 let category = "Others";
+let currentEditId = null;
 
-async function loadTasks() {
+export async function loadTasks() {
   try {
     const res = await fetch("http://localhost:3000/api/tasks");
     const data = await res.json();
@@ -53,58 +53,11 @@ btnAdd.addEventListener("click", async () => {
   }
 });
 
-const updateTaskContainer = () => {
-  taskContainer.innerHTML = "";
-  console.log(taskArr);
-  taskArr.forEach(
-    ({ id, taskTitle, complete, category, created_at, completed_at }) => {
-      let completionTimeText = "";
-      if (completed_at && complete) {
-        const createdDate = new Date(created_at);
-        const completedDate = new Date(completed_at);
-        const diffMs = completedDate - createdDate;
-        const diffMinutes = Math.floor(
-          (diffMs % (1000 * 60 * 60)) / (1000 * 60)
-        );
-
-        completionTimeText = `complete ${diffMinutes}m `;
-      }
-      taskContainer.innerHTML += `
-    <div class="task" id="${id}">
-        <div class="task-container">
-              <div class="validation-conteiner">
-                  <input type="checkbox" ${
-                    complete ? "checked" : ""
-                  } onchange = "completeBox(${id})"/>    
-                  <h2 style="text-decoration: ${
-                    complete ? "line-through" : "none"
-                  }" onclick="openZommModal('${taskTitle.replace(
-        /'/g,
-        "\\'"
-      )}')">${taskTitle}</h2>
-              </div>
-                <div class="btn-container">
-                    <button class="btn edit" data-id="${id}" onclick="editTask(this)"><i class='bxr  bx-edit'  ></i> </button>
-                    <button class="btn delete" data-id="${id}" onclick="deleteTask(this)"><i class='bxr  bx-trash'  ></i> </button>
-                </div>
-          </div>
-          <div class="update-category">
-            <button class="category-task-btn ${category}">${category}</button>
-             ${
-               complete
-                 ? `<label class="completion-time category-task-btn ${category}">${completionTimeText}</label>`
-                 : ""
-             }
-          </div>
-    </div>
-    `;
-    }
-  );
-};
-
-async function completeBox(id) {
+export async function completeBox(id) {
   const task = taskArr.find((t) => t.id === id);
-  if (!task) return;
+  if (!task) {
+    return;
+  }
   const newStatus = !task.complete;
   const res = await fetch(`http://localhost:3000/api/tasks/${id}`, {
     method: "PUT",
@@ -128,10 +81,7 @@ async function completeBox(id) {
   }
 }
 
-/**/
-
-/*Detele function*/
-async function deleteTask(buttonEl) {
+export async function deleteTask(buttonEl) {
   const id = parseInt(buttonEl.dataset.id);
 
   try {
@@ -149,7 +99,7 @@ async function deleteTask(buttonEl) {
   }
 }
 
-async function editTask(buttonEl) {
+export async function editTask(buttonEl) {
   const id = parseInt(buttonEl.dataset.id);
   const task = taskArr.find((t) => t.id === id);
   console.log(task);
@@ -157,6 +107,7 @@ async function editTask(buttonEl) {
     return;
   }
 
+  // usamos currentEditId directamente
   currentEditId = id;
   editInput.value = task.taskTitle;
   editModal.classList.remove("hidden");
@@ -167,7 +118,6 @@ confirmEditBtn.addEventListener("click", async () => {
   const newTitle = editInput.value.trim();
   if (!newTitle || currentEditId === null) return;
 
-  /*actual state*/
   const old = taskArr.find((t) => t.id === currentEditId);
 
   const res = await fetch(`http://localhost:3000/api/tasks/${currentEditId}`, {
@@ -183,12 +133,10 @@ confirmEditBtn.addEventListener("click", async () => {
     throw new Error("Error en la respuesta del servidor");
   }
 
-  /*Parseo y normalizacion tipos*/
   const updated = await res.json();
   updated.id = Number(updated.id);
   updated.complete = Boolean(updated.complete);
 
-  /*reemplazo de tarea*/
   const idx = taskArr.findIndex((t) => t.id === currentEditId);
   if (idx !== -1) {
     taskArr[idx] = {
@@ -200,14 +148,15 @@ confirmEditBtn.addEventListener("click", async () => {
 
   closeEditModal();
 });
+
 cancelEditBtn.addEventListener("click", closeEditModal);
 
-function closeEditModal() {
+export function closeEditModal() {
   editModal.classList.add("hidden");
   currentEditId = null;
 }
 
-function openZommModal(text) {
+export function openZommModal(text) {
   zoomText.textContent = text;
   zoomModal.classList.remove("hidden");
 }
@@ -215,8 +164,6 @@ function openZommModal(text) {
 zoomCloseBtn.addEventListener("click", () => {
   zoomModal.classList.add("hidden");
 });
-
-/*category*/
 
 categoryButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -227,3 +174,8 @@ categoryButtons.forEach((btn) => {
     console.log(btn);
   });
 });
+
+window.deleteTask = deleteTask;
+window.editTask = editTask;
+window.completeBox = completeBox;
+window.openZommModal = openZommModal;

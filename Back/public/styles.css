@@ -115,6 +115,7 @@ body {
   background-color: #151a1a;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease-in;
 }
 
 .main-container .container-add-task .category-select .category-btn:hover {
@@ -138,6 +139,7 @@ body {
 
 .main-container .list-task .task {
   display: flex;
+  position: relative;
   flex-direction: column;
   min-height: 60px;
   margin-bottom: 15px;
@@ -146,6 +148,22 @@ body {
   border-radius: 10px;
   box-shadow: 1px 1px 4px #c549ea;
 }
+/*
+.main-container .list-task .task:hover::after {
+  width: 100%;
+}
+.main-container .list-task .task::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: #07b04e;
+  z-index: 0;
+  transition: width 0.4s ease;
+}
+  */
 
 .main-container .list-task .task .task-container {
   display: flex;
@@ -171,6 +189,7 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
   margin-right: 5px;
+  cursor: pointer;
 }
 
 .main-container .list-task .task .btn-container {
@@ -193,10 +212,22 @@ body {
 
 .main-container .list-task .task .btn-container .btn.edit {
   background-color: var(--button-bg-color);
+  transition: all 0.3s ease-in;
+}
+
+.main-container .list-task .task .btn-container .btn.edit:hover {
+  background-color: #196d6d;
+  transition: all 0.3s ease-in;
 }
 
 .main-container .list-task .task .btn-container .btn.delete {
   background-color: var(--btn-delete);
+  transition: all 0.3s ease-in;
+}
+
+.main-container .list-task .task .btn-container .btn.delete:hover {
+  background-color: #5d1417;
+  transition: all 0.3s ease-in;
 }
 
 .main-container .list-task .task .update-category {
