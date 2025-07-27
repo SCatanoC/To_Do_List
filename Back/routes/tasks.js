@@ -48,6 +48,11 @@ router.put("/:id", (req, res) => {
     return res.status(400).json({ error: "Faltan taskTitle o complete" });
   }
 
+  db.query("UPDATE tasks SET completed_at = IF(?, NOW(), NULL) WHERE id = ?", [
+    complete,
+    id,
+  ]);
+
   db.query(
     "UPDATE tasks SET taskTitle = ?, complete = ? WHERE id = ?",
     [taskTitle, complete, id],
