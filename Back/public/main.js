@@ -11,8 +11,11 @@ const zoomModal = document.getElementById("zoom-modal");
 const zoomText = document.getElementById("zoom-text");
 const zoomCloseBtn = document.getElementById("zoom-btn");
 
+const categoryButtons = document.querySelectorAll(".category-btn");
+
 let currentEditId = null;
 const taskArr = [];
+let category = "Work";
 
 async function loadTasks() {
   try {
@@ -29,13 +32,16 @@ loadTasks();
 
 btnAdd.addEventListener("click", async () => {
   const title = titleInput.value.trim();
-  if (title === "") return;
+  if (title === "") {
+    return;
+  }
+  console.log("Categoría seleccionada:", category);
 
   try {
     const res = await fetch("http://localhost:3000/api/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ taskTitle: title }),
+      body: JSON.stringify({ taskTitle: title, category }),
     });
 
     const newTask = await res.json();
@@ -49,7 +55,8 @@ btnAdd.addEventListener("click", async () => {
 
 const updateTaskContainer = () => {
   taskContainer.innerHTML = "";
-  taskArr.forEach(({ id, taskTitle, complete }) => {
+  console.log(taskArr);
+  taskArr.forEach(({ id, taskTitle, complete, category }) => {
     taskContainer.innerHTML += `
     <div class="task" id="${id}">
         <div class="validation-conteiner">
@@ -63,10 +70,13 @@ const updateTaskContainer = () => {
       "\\'"
     )}')">${taskTitle}</h2>
         </div>
-        <div class="btn-container">
-            <button class="btn edit" data-id="${id}" onclick="editTask(this)"><i class='bxr  bx-edit'  ></i> </button>
-            <button class="btn delete" data-id="${id}" onclick="deleteTask(this)"><i class='bxr  bx-trash'  ></i> </button>
-        </div>
+          <div class="btn-container">
+              <button class="btn edit" data-id="${id}" onclick="editTask(this)"><i class='bxr  bx-edit'  ></i> </button>
+              <button class="btn delete" data-id="${id}" onclick="deleteTask(this)"><i class='bxr  bx-trash'  ></i> </button>
+          </div>
+    </div>
+    <div class="update-category">
+            <button>${category}</button>
     </div>
     `;
   });
@@ -182,4 +192,16 @@ function openZommModal(text) {
 
 zoomCloseBtn.addEventListener("click", () => {
   zoomModal.classList.add("hidden");
+});
+
+/*category*/
+
+categoryButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    category = btn.getAttribute("data-category");
+    categoryButtons.forEach((b) => b.classList.remove("selected"));
+    console.log(categoryButtons);
+    btn.classList.add("selected");
+    console.log(btn);
+  });
 });

@@ -16,19 +16,25 @@ router.get("/", (req, res) => {
 
 // Agregar tarea
 router.post("/", (req, res) => {
-  const { taskTitle } = req.body;
+  const { taskTitle, category } = req.body;
+  console.log(req.body);
   if (!taskTitle) {
     return res.status(400).json({ error: "Falta el título" });
   }
 
   db.query(
-    "INSERT INTO tasks (taskTitle) VALUES (?)",
-    [taskTitle],
+    "INSERT INTO tasks (taskTitle,category) VALUES (?, ?)",
+    [taskTitle, category],
     (err, result) => {
       if (err) {
         return res.status(500).json({ error: err });
       }
-      res.json({ id: result.insertId, taskTitle, complete: false });
+      res.json({
+        id: result.insertId,
+        taskTitle,
+        complete: false,
+        category,
+      });
     }
   );
 });

@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 :root {
-  --main-color: #253b3b;
-  --section-main-color: #0d1111;
+  --main-color: #151a1a;
+  --section-main-color: #010505;
   --button-bg-color: #239696;
   --input-field: #000;
   --btn-delete: #c1292e;
@@ -47,11 +47,17 @@ body {
 .main-container .container-add-task {
   width: 100%;
   display: flex;
+  flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.main-container .container-add-task .input-task {
+.main-container .container-add-task .container-task-input {
+  display: flex;
+  gap: 10px;
+}
+
+.main-container .container-add-task .container-task-input .input-task {
   width: 85%;
   height: 55px;
   border-radius: 6px;
@@ -63,7 +69,7 @@ body {
   box-shadow: 1px 1px 4px var(--button-bg-color);
 }
 
-.main-container .container-add-task .btn {
+.main-container .container-add-task .container-task-input .btn {
   display: flex;
   width: 15%;
   align-items: center;
@@ -73,6 +79,34 @@ body {
   cursor: pointer;
   border-radius: 6px;
   font-size: 30px;
+}
+
+.main-container .container-add-task .category-select {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.main-container .container-add-task .category-select .category-btn {
+  border-radius: 8px;
+  padding: 4px 0px;
+  width: 22%;
+  color: #b0aeae;
+  background-color: #151a1a;
+  border: none;
+  cursor: pointer;
+}
+
+.main-container .container-add-task .category-select .category-btn:hover {
+  color: #b0aeae;
+  background-color: #3a5959;
+  transition: all 0.5s ease-in;
+}
+
+.main-container .container-add-task .category-select .category-btn.selected {
+  background-color: #4bc551;
+  color: #000;
+  transition: all 0.3s ease-in;
 }
 
 .main-container .list-task {

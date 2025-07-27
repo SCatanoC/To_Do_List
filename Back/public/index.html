@@ -15,15 +15,28 @@
     <section class="main-container">
       <h1>To Do List</h1>
       <div class="container-add-task">
-        <input
-          class="input-task"
-          placeholder="Add your Task"
-          id="title-input"
-        />
-        <button class="btn" id="btn-add" type="button">+</button>
+        <div class="container-task-input">
+          <input
+            class="input-task"
+            placeholder="Add your Task"
+            id="title-input"
+          />
+          <button class="btn" id="btn-add" type="button">+</button>
+        </div>
+        <!-- category -->
+        <div class="category-select flex gap-2 mt-2">
+          <button class="category-btn" data-category="Work">Work</button>
+          <button class="category-btn" data-category="University">
+            University
+          </button>
+          <button class="category-btn" data-category="Home">Home</button>
+          <button class="category-btn selected" data-category="Others">
+            Others
+          </button>
+        </div>
       </div>
       <div class="list-task" id="task-container"></div>
-      <!-- Modal de edición -->
+      <!-- Modal-edit -->
       <div id="edit-modal" class="modal hidden">
         <div class="modal-conteiner">
           <h2>Edit Task</h2>
