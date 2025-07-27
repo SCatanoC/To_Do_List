@@ -15,7 +15,7 @@ const categoryButtons = document.querySelectorAll(".category-btn");
 
 let currentEditId = null;
 const taskArr = [];
-let category = "Work";
+let category = "Others";
 
 async function loadTasks() {
   try {
