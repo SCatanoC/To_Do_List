@@ -43,6 +43,7 @@ MySQL (v5.7+)
 ```bash
 npm install
 npm install mysql2
+npm install express --save
 ```
 4. Configurar la base de datos:
 
