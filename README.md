@@ -6,7 +6,7 @@ Permite crear, editar, eliminar y marcar tareas como completadas, además de cat
 
 ##  Demo online
 
-🔗 [Ver aplicación desplegada](https://to-do-list-web-cxfx.onrender.com/
+🔗 [Ver aplicación desplegada](https://to-do-list-web-cxfx.onrender.com/]
 
 
 ## Tecnologías Utilizadas
