@@ -29,7 +29,8 @@ Permite crear, editar, eliminar y marcar tareas como completadas, además de cat
 1. Clona el repositorio
  ```bash
 git clone https://github.com/SCatanoC/To_Do_List.git
-cd Back
+cd To_Do_List/Back
+
 ```
 
 2. Requisitos previos
@@ -63,16 +64,18 @@ CREATE TABLE tasks (
 5. Configurar las variables de entorno:
 Crear un archivo .env en la raíz del proyecto con:
 ```bash
-DB_USER=tu_usuario_mysql
-DB_PASSWORD=tu_contraseña_mysql
+DB_USER=usuario_mysql
+DB_PASSWORD=contraseña_mysql
 DB_NAME=todo_app
+DB_HOST=localhost
+DB_PORT=3306
+```
 
-``
 
 
 ## Ejecución del Proyecto
 
-1.Iniciar el servidor (Backend)
+1.Iniciar el servidor desde la carpeta Back ->cd back
 
 ```bash
   node server.js
