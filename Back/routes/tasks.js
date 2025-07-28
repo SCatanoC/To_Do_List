@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
-// Obtener todas las tareas
+// Obtener todas las t
 router.get("/", (req, res) => {
   db.query("SELECT * FROM tasks", (err, results) => {
     if (err) {
@@ -39,7 +39,7 @@ router.post("/", (req, res) => {
   );
 });
 
-// Editar título y completar
+// Editar ttulo
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { taskTitle, complete } = req.body;
@@ -61,7 +61,7 @@ router.put("/:id", (req, res) => {
         return res.status(500).json({ error: err });
       }
 
-      // Devolver la tarea completa actualizada
+      //  tarea completa actualizada
       db.query("SELECT * FROM tasks WHERE id = ?", [id], (err2, results) => {
         if (err2) {
           return res.status(500).json({ error: err2 });
@@ -82,7 +82,5 @@ router.delete("/:id", (req, res) => {
     res.json({ id });
   });
 });
-
-//Filter
 
 module.exports = router;

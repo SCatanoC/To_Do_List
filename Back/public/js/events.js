@@ -14,6 +14,7 @@ import {
   btnAll,
   btnCompleted,
   btnPending,
+  filterButtons,
 } from "./dom.js";
 import { updateTaskContainer } from "./render.js";
 
@@ -36,6 +37,7 @@ loadTasks();
 btnAdd.addEventListener("click", async () => {
   const title = titleInput.value.trim();
   if (title === "") {
+    alert("Please enter a task before adding.");
     return;
   }
   console.log("Categoría seleccionada:", category);
@@ -176,16 +178,29 @@ categoryButtons.forEach((btn) => {
   });
 });
 
-btnCompleted.addEventListener("click", () => {
-  updateTaskContainer(taskArr.filter((t) => t.complete === 1));
-});
+/*Filters*/
 
 btnAll.addEventListener("click", () => {
+  console.log(filterButtons);
+  filterButtons.forEach((btn) => btn.classList.remove("selected"));
+  console.log(filterButtons);
+  btnAll.classList.add("selected");
   updateTaskContainer();
 });
 
+btnCompleted.addEventListener("click", () => {
+  filterButtons.forEach((btn) => btn.classList.remove("selected"));
+  console.log(filterButtons);
+  btnCompleted.classList.add("selected");
+  updateTaskContainer(taskArr.filter((t) => t.complete));
+});
+
 btnPending.addEventListener("click", () => {
-  updateTaskContainer(taskArr.filter((t) => t.complete === 0));
+  filterButtons.forEach((btn) => {
+    btn.classList.remove("selected");
+  });
+  btnPending.classList.add("selected");
+  updateTaskContainer(taskArr.filter((t) => !t.complete));
 });
 
 window.deleteTask = deleteTask;

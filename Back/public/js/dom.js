@@ -12,6 +12,7 @@ export const zoomText = document.getElementById("zoom-text");
 export const zoomCloseBtn = document.getElementById("zoom-btn");
 
 export const categoryButtons = document.querySelectorAll(".category-btn");
+export const filterButtons = document.querySelectorAll(".btn-filter");
 
 export const btnAll = document.getElementById("btn-all");
 export const btnCompleted = document.getElementById("btn-completed");

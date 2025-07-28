@@ -10,6 +10,12 @@
   --font-color-catetask: #b0aeae;
 
   --categorybtn-color: #151a1a;
+  --sel-color: #4bc551;
+  --hover-color: #3a5959;
+  --hover-edit: #196d6d;
+  --hover-delete: #5d1417;
+
+  --task-shadow-c: #c549ea;
 }
 
 /*category colors*/
@@ -65,6 +71,7 @@ body {
   margin-bottom: 20px;
 }
 
+/*Input field styles*/
 .main-container .container-add-task {
   width: 100%;
   display: flex;
@@ -85,6 +92,7 @@ body {
   border: none;
   padding: 10px;
   font-size: 15px;
+  outline: none;
   color: var(--main-font-color);
   background-color: var(--input-field);
   box-shadow: 1px 1px 4px var(--button-bg-color);
@@ -101,6 +109,8 @@ body {
   border-radius: 6px;
   font-size: 30px;
 }
+
+/*category styles*/
 
 .main-container .container-add-task .category-select {
   display: flex;
@@ -122,12 +132,12 @@ body {
 
 .main-container .container-add-task .category-select .category-btn:hover {
   color: var(--font-color-catetask);
-  background-color: #3a5959;
+  background-color: var(--hover-color);
   transition: all 0.5s ease-in;
 }
 
 .main-container .container-add-task .category-select .category-btn.selected {
-  background-color: #4bc551;
+  background-color: var(--sel-color);
   color: #000;
   transition: all 0.3s ease-in;
 }
@@ -153,8 +163,14 @@ body {
   transition: all 0.3s ease-in;
 }
 
+.main-container .filters .btn-filter.selected {
+  background-color: var(--sel-color);
+  color: black;
+  transition: all 0.3s ease-in;
+}
+
 .main-container .filters .btn-filter:hover {
-  background-color: #3a5959;
+  background-color: var(--hover-color);
   color: var(--font-color-catetask);
   transition: all 0.3s ease-in;
 }
@@ -177,24 +193,8 @@ body {
   padding: 10px 10px;
   border: 5px solid #000;
   border-radius: 10px;
-  box-shadow: 1px 1px 4px #c549ea;
+  box-shadow: 1px 1px 4px var(--task-shadow-c);
 }
-/*
-.main-container .list-task .task:hover::after {
-  width: 100%;
-}
-.main-container .list-task .task::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 0;
-  background: #07b04e;
-  z-index: 0;
-  transition: width 0.4s ease;
-}
-  */
 
 .main-container .list-task .task .task-container {
   display: flex;
@@ -247,7 +247,7 @@ body {
 }
 
 .main-container .list-task .task .btn-container .btn.edit:hover {
-  background-color: #196d6d;
+  background-color: var(--hover-edit);
   transition: all 0.3s ease-in;
 }
 
@@ -257,7 +257,7 @@ body {
 }
 
 .main-container .list-task .task .btn-container .btn.delete:hover {
-  background-color: #5d1417;
+  background-color: var(--hover-delete);
   transition: all 0.3s ease-in;
 }
 
@@ -298,11 +298,13 @@ body {
 }
 
 .validation-conteiner input[type="checkbox"] {
-  min-width: 20px;
-  min-height: 20px;
+  width: 20px;
+  height: 20px;
   accent-color: var(--button-bg-color);
   cursor: pointer;
 }
+
+/*modal styles*/
 
 .modal,
 .zoom-modal {
@@ -342,6 +344,7 @@ body {
   margin-bottom: 10px;
   border-radius: 6px;
   border: none;
+  outline: none;
   padding: 10px;
   color: var(--main-font-color);
   background-color: var(--input-field);
@@ -371,6 +374,8 @@ body {
 .modal .modal-conteiner .btn-modal .cancel-edit {
   background-color: var(--btn-delete);
 }
+
+/*zomm modal styles*/
 
 .zoom-modal .zoom-container {
   display: flex;
@@ -412,4 +417,71 @@ body {
 
 .hidden {
   display: none;
+}
+
+@media screen and (max-width: 400px) {
+  .main-container h1 {
+    font-size: 30px;
+  }
+
+  .main-container .container-add-task .container-task-input .input-task {
+    height: 40px;
+    font-size: 12px;
+  }
+
+  .main-container .container-add-task .container-task-input .btn {
+    height: 40px;
+  }
+
+  .main-container h2 {
+    font-size: 15px;
+  }
+
+  .main-container .container-add-task .category-select .category-btn {
+    font-size: 10px;
+  }
+
+  .main-container .filters .btn-filter {
+    font-size: 10px;
+  }
+
+  .main-container .list-task .task .validation-conteiner h2 {
+    font-size: 15px;
+  }
+
+  .main-container .list-task .task .btn-container .btn {
+    font-size: 15px;
+  }
+
+  .validation-conteiner input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .main-container h1 {
+    font-size: 25px;
+  }
+
+  .main-container .container-add-task .container-task-input .input-task {
+    height: 35px;
+    font-size: 10px;
+  }
+
+  .main-container .container-add-task .container-task-input .btn {
+    height: 30px;
+  }
+
+  .main-container h2 {
+    font-size: 13px;
+  }
+
+  .main-container .container-add-task .category-select .category-btn {
+    font-size: 8px;
+  }
+
+  .main-container .filters .btn-filter {
+    font-size: 8px;
+  }
 }
