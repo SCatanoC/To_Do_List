@@ -1,25 +1,23 @@
+// backend/server.js
 const express = require("express");
 const cors = require("cors");
 const taskroutes = require("./routes/tasks");
-const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const path = require("path");
 
-app.use(cors());
-app.use(express.json());
+const PORT = 3000;
 
+app.use(cors()); // Permitir peticiones desde otros orígenes
+app.use(express.json()); // Interpretar JSON en el cuerpo de las peticiones
+
+// task route
 app.use("/api/tasks", taskroutes);
 
 // Servir archivos estáticos
 app.use(express.static(path.join(__dirname, "public")));
 
-// Ruta raíz que carga el frontend
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-// Iniciar servidor
+// Init server
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
