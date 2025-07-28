@@ -27,9 +27,8 @@ Permite crear, editar, eliminar y marcar tareas como completadas, además de cat
 ## Instalación
 
 1. Clona el repositorio
-
  ```bash
-git clone https://github.com/SCatanoC/todo-list.git
+git clone https://github.com/SCatanoC/To_Do_List.git
 cd Back
 ```
 
