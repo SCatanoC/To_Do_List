@@ -41,6 +41,7 @@ MySQL (v5.7+)
 
 ```bash
  npm install
+npm install mysql2
 ```
 4. Configurar la base de datos:
 
