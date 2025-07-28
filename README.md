@@ -26,17 +26,24 @@ Permite crear, editar, eliminar y marcar tareas como completadas, además de cat
 
 ## Instalación
 
-1. Requisitos previos
+1. Clona el repositorio
+
+ ```bash
+git clone https://github.com/tuusuario/todo-list-app.git
+cd Back
+```
+
+2. Requisitos previos
 Node.js (v16+)
 
 MySQL (v5.7+)
 
-2. Intalar Dependencias:
+3. Intalar Dependencias:
 
 ```bash
  npm install
 ```
-3. Configurar la base de datos:
+4. Configurar la base de datos:
 
 Crear una base de datos MySQL con nombre "todo_app" (o modificar el nombre en db.js).
 
@@ -53,7 +60,7 @@ CREATE TABLE tasks (
 );
 ```
 
-4. Configurar las variables de entorno:
+5. Configurar las variables de entorno:
 Crear un archivo .env en la raíz del proyecto con:
 ```bash
 DB_USER=tu_usuario_mysql
@@ -71,6 +78,7 @@ DB_NAME=todo_app
   node server.js
 ```
 El servidor se ejecutará en: http://localhost:3000
+Abre esa URL en tu navegador para usar la aplicación.
 
 API Endpoints
 
