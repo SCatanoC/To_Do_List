@@ -11,6 +11,9 @@ import {
   zoomCloseBtn,
   categoryButtons,
   taskArr,
+  btnAll,
+  btnCompleted,
+  btnPending,
 } from "./dom.js";
 import { updateTaskContainer } from "./render.js";
 
@@ -171,6 +174,18 @@ categoryButtons.forEach((btn) => {
     btn.classList.add("selected");
     console.log(btn);
   });
+});
+
+btnCompleted.addEventListener("click", () => {
+  updateTaskContainer(taskArr.filter((t) => t.complete === 1));
+});
+
+btnAll.addEventListener("click", () => {
+  updateTaskContainer();
+});
+
+btnPending.addEventListener("click", () => {
+  updateTaskContainer(taskArr.filter((t) => t.complete === 0));
 });
 
 window.deleteTask = deleteTask;

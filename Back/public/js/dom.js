@@ -12,4 +12,9 @@ export const zoomText = document.getElementById("zoom-text");
 export const zoomCloseBtn = document.getElementById("zoom-btn");
 
 export const categoryButtons = document.querySelectorAll(".category-btn");
+
+export const btnAll = document.getElementById("btn-all");
+export const btnCompleted = document.getElementById("btn-completed");
+export const btnPending = document.getElementById("btn-pending");
+
 export const taskArr = [];

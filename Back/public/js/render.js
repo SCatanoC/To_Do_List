@@ -1,10 +1,10 @@
 import { taskContainer, taskArr } from "./dom.js";
 import { completeBox, editTask, deleteTask, openZommModal } from "./events.js";
 
-export const updateTaskContainer = () => {
+export const updateTaskContainer = (tasks = taskArr) => {
   taskContainer.innerHTML = "";
   console.log(taskArr);
-  taskArr.forEach(
+  tasks.forEach(
     ({ id, taskTitle, complete, category, created_at, completed_at }) => {
       let completionTimeText = "";
       if (completed_at && complete) {
