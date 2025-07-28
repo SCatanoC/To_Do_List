@@ -29,7 +29,7 @@ Permite crear, editar, eliminar y marcar tareas como completadas, además de cat
 1. Clona el repositorio
 
  ```bash
-git clone https://github.com/tuusuario/todo-list-app.git
+git clone https://github.com/SCatanoC/todo-list-app.git
 cd Back
 ```
 
